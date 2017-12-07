@@ -1,0 +1,3 @@
+zipkinReplicaCount: 1
+zipkinNodeSelector: worker
+zipkinImageVersion: 2.3.1

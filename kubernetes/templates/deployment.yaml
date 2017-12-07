@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "kubernetes.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "kubernetes.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.zipkinReplicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "kubernetes.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      nodeSelector:
+        type: {{ .Values.zipkinNodeSelector }}
+      containers:
+      - name: zipkin
+        image: openzipkin/zipkin:{{ .Values.zipkinImageVersion }}
+        env:
+          - name: STORAGE_TYPE
+            value: "cassandra"
+          - name: STORAGE_PORT_9042_TCP_ADDR
+            value: "cassandra"
+        ports:
+        - containerPort: 9411
+          name: zipkin-api
+        readinessProbe:
+          httpGet:
+            path: "/api/v1/services"
+            port: 9411
+          initialDelaySeconds: 5
