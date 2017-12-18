@@ -1,3 +1,4 @@
 zipkinReplicaCount: 1
-zipkinNodeSelector: worker
+zipkinNodeSelector:
+  node-role.kubernetes.io/node: "true"
 zipkinImageVersion: 2.3.1

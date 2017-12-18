@@ -17,7 +17,9 @@ spec:
         release: {{ .Release.Name }}
     spec:
       nodeSelector:
-        type: {{ .Values.zipkinNodeSelector }}
+        {{- range $key, $val := .Values.zipkinNodeSelector }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end}}
       containers:
       - name: zipkin
         image: openzipkin/zipkin:{{ .Values.zipkinImageVersion }}
