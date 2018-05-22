@@ -29,7 +29,7 @@ spec:
           - name: STORAGE_PORT_9042_TCP_ADDR
             value: "cassandra"
           - name: JAVA_OPTS
-            value: "-Dlogging.level.zipkin=ERROR -Dlogging.level.zipkin2=ERROR"
+            value: "-Dlogging.level.zipkin=ERROR -Dlogging.level.zipkin2=ERROR -Dnetworkaddress.cache.ttl=15"
         ports:
         - containerPort: 9411
           name: zipkin-api
