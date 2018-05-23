@@ -1,4 +1,4 @@
 apiVersion: v1
 description: Zipkin Helm chart for Kubernetes
 name: zipkin
-version: 0.2.0
+version: 0.2.1
